@@ -1,11 +1,6 @@
-// Build a Stopwatch app which starts by pressing the button start and stop by stop button also there is a reset button.
-
 window.onload = function () {
-
-    let seconds = 00;
-    let mins = 00;
-    let min = document.getElementById("mins")
-    let sec = document.getElementById("seconds")
+    let [minisecs, seconds, mins, hours] = [0, 0, 0, 0];
+    let timer = document.querySelector(".timer");
     let startBtn = document.getElementById('btn-start');
     let stopBtn = document.getElementById('btn-stop');
     let resetBtn = document.getElementById('btn-reset');
@@ -23,30 +18,30 @@ window.onload = function () {
 
     resetBtn.onclick = function () {
         clearInterval(startTimer);
-        mins = "00";
-        seconds = "00";
-        min.innerHTML = mins;
-        sec.innerHTML = seconds;
+        [minisecs, seconds, mins, hours] = [0, 0, 0, 0];
+        timer.textContent = "00 : 00 : 00 : 000";
     }
 
     function runTimer() {
-        mins++;
+        minisecs += 10;
 
-        if (mins <= 9) {
-            min.innerHTML = "0" + mins;
-        }
-        if (mins > 9) {
-            min.innerHTML = mins;
-
-        }
-        if (mins > 99) {
+        if (minisecs == 1000) {
+            minisecs = 0;
             seconds++;
-            sec.innerHTML = "0" + seconds;
+        }
+        if (seconds == 60) {
+            seconds = 0;
+            mins++;
+        }
+        if (mins == 60) {
             mins = 0;
-            min.innerHTML = "0" + 0;
+            hours++;
         }
-        if (seconds > 9) {
-            sec.innerHTML = seconds;
-        }
+
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = mins < 10 ? "0" + mins : mins;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        let ms = minisecs < 10 ? "00" + minisecs : minisecs < 100 ? "0" + minisecs : minisecs;
+        timer.textContent = `${h} : ${m} : ${s} : ${ms}`;
     }
 }
