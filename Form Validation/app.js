@@ -61,7 +61,7 @@ function confirmPass() {
       return false;
     } else {
       confirmPasswordError.innerHTML = '<i class="fa-solid fa-circle-check"></i>'
-      return false
+      return true
     }
   }
 }
@@ -73,8 +73,6 @@ function validateSubmit() {
     return false;
   }
   else {
-    submitError.style.display = "block";
-    submitError.innerHTML = "Success";
-    return true;
+    alert("Successfully Signed Up")
   }
 }
